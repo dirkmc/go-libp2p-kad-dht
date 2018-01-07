@@ -172,7 +172,7 @@ func (dht *IpfsDHT) GetValues(ctx context.Context, key string, nvals int) (_ []r
 	var valslock sync.Mutex
 
 	// If we have it local, dont bother doing an RPC!
-	lrec, err := dht.getLocal(key)
+	lrec, err := dht.getLocal(ctx, key)
 	if err == nil {
 		// TODO: this is tricky, we dont always want to trust our own value
 		// what if the authoritative source updated it?

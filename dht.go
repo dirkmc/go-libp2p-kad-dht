@@ -218,7 +218,7 @@ func (dht *IpfsDHT) getValueSingle(ctx context.Context, p peer.ID, key string) (
 }
 
 // getLocal attempts to retrieve the value from the datastore
-func (dht *IpfsDHT) getLocal(key string) (*recpb.Record, error) {
+func (dht *IpfsDHT) getLocal(ctx context.Context, key string) (*recpb.Record, error) {
 	log.Debugf("getLocal %s", key)
 
 	v, err := dht.datastore.Get(mkDsKey(key))
@@ -237,7 +237,7 @@ func (dht *IpfsDHT) getLocal(key string) (*recpb.Record, error) {
 		return nil, err
 	}
 
-	err = dht.verifyRecordLocally(rec)
+	err = dht.verifyRecordLocally(ctx, rec)
 	if err != nil {
 		log.Debugf("local record verify failed: %s (discarded)", err)
 		return nil, err

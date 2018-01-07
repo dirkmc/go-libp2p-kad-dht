@@ -170,7 +170,7 @@ func (dht *IpfsDHT) handlePutValue(ctx context.Context, p peer.ID, pmes *pb.Mess
 		return nil, errors.New("nil record")
 	}
 
-	if err = dht.verifyRecordLocally(rec); err != nil {
+	if err = dht.verifyRecordLocally(ctx, rec); err != nil {
 		log.Warningf("Bad dht record in PUT from: %s. %s", peer.ID(pmes.GetRecord().GetAuthor()), err)
 		return nil, err
 	}
